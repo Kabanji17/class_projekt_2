@@ -1,7 +1,7 @@
 import datetime
-from tests.conftest import task
-from src.task import Task
 
+from src.task import Task
+from tests.conftest import task
 
 
 def test_task_init(task):
@@ -17,6 +17,7 @@ def test_task_create():
     task.status = "Ожидает старта"
     task.created_at = datetime.datetime.now().date().strftime("%d.%m.%Y")
 
+
 def test_task_update(capsys, task):
     task.created_at = "29.07.2024"
     message = capsys.readouterr()
@@ -24,3 +25,11 @@ def test_task_update(capsys, task):
 
     task.created_at = datetime.datetime.now().date().strftime("%d.%m.%Y")
     assert task.created_at == datetime.datetime.now().date().strftime("%d.%m.%Y")
+
+
+def test_task_str(task):
+    assert str(task) == "Купить огурцы, Статус выполнения: Ожидает старта, Дата создания: 20.04.2022"
+
+
+def test_task_add(task_with_runtime1, task_with_runtime2):
+    assert task_with_runtime1 + task_with_runtime2 == 130
