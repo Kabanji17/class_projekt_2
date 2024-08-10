@@ -3,6 +3,8 @@ import pytest
 from src.task import Task
 from src.user import User
 from src.task_iterator import TaskIterator
+from src.periodic_task import PeriodicTask
+from src.dedline_task import DeadlineTask
 
 
 @pytest.fixture
@@ -52,3 +54,23 @@ def task_with_runtime2():
 @pytest.fixture
 def task_iterator(second_user):
     return TaskIterator(second_user)
+
+
+@pytest.fixture
+def task_periodic_1():
+    return PeriodicTask("Купить водку", "Купить спиртное на праздник", "09.08.2024", "10.08.2024", run_time=60)
+
+
+@pytest.fixture
+def task_periodic_2():
+    return PeriodicTask("Купить виски", "Купить спиртное на праздник", "09.08.2024", "10.08.2024", run_time=90)
+
+
+@pytest.fixture
+def task_deadline_1():
+    return DeadlineTask("Купить пиво", "Купить спиртное на праздник", "11.08.2024", run_time=60)
+
+
+@pytest.fixture
+def task_deadline_2():
+    return DeadlineTask("Купить шампанское", "Купить спиртное на праздник", "12.08.2024", run_time=90)

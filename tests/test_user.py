@@ -30,9 +30,20 @@ def test_user_task_list_setter(first_user, task):
     assert len(first_user.task_in_list) == 3
 
 
+def test_user_task_list_setter_invalid(first_user, task):
+    with pytest.raises(TypeError):
+        first_user.task_list = 1
+
+
+def test_user_task_list_setter_periodic_task(first_user, task_periodic_1):
+    first_user.task_list = task_periodic_1
+    assert first_user.task_in_list[-1].name == 'Купить водку'
+
+
 def test_user_str(first_user, second_user):
     assert str(first_user) == "Putin Vladimir, Email: Vova.Putin@email.com, Всего задач в списке: 2"
     assert str(second_user) == "Medvedev Dmitriy, Email: Dima.Medvedev@email.com, Всего задач в списке: 3"
+
 
 def test_task_iterator(task_iterator):
     iter(task_iterator)

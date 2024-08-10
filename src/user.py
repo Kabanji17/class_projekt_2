@@ -31,8 +31,11 @@ class User:
 
     @task_list.setter
     def task_list(self, task: Task):
-        self.__task_list.append(task)
-        User.all_tasks_count += 1
+        if isinstance(task, Task):
+            self.__task_list.append(task)
+            User.all_tasks_count += 1
+        else:
+            raise TypeError
 
     @property
     def task_in_list(self):
