@@ -2,6 +2,7 @@ from datetime import datetime
 
 import pytest
 
+
 def test_deadline_task_init(task_deadline_1):
     assert task_deadline_1.name == "Купить пиво"
     assert task_deadline_1.description == "Купить спиртное на праздник"

@@ -2,7 +2,7 @@ from src.task import Task
 from src.user import User
 
 
-class TaskIterator():
+class TaskIterator:
 
     def __init__(self, user_obj):
         self.user = user_obj
@@ -19,6 +19,7 @@ class TaskIterator():
             return task
         else:
             raise StopIteration
+
 
 if __name__ == "__main__":
     task_1 = Task("Купить огурцы", "Купить огурцы для салата")

@@ -1,5 +1,6 @@
-import pytest
 from datetime import datetime
+
+import pytest
 
 
 def test_periodic_task_init(task_periodic_1):

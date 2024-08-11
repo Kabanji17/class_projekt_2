@@ -37,7 +37,7 @@ def test_user_task_list_setter_invalid(first_user, task):
 
 def test_user_task_list_setter_periodic_task(first_user, task_periodic_1):
     first_user.task_list = task_periodic_1
-    assert first_user.task_in_list[-1].name == 'Купить водку'
+    assert first_user.task_in_list[-1].name == "Купить водку"
 
 
 def test_user_str(first_user, second_user):

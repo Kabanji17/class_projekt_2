@@ -1,10 +1,10 @@
 import pytest
 
-from src.task import Task
-from src.user import User
-from src.task_iterator import TaskIterator
-from src.periodic_task import PeriodicTask
 from src.deadline_task import DeadlineTask
+from src.periodic_task import PeriodicTask
+from src.task import Task
+from src.task_iterator import TaskIterator
+from src.user import User
 
 
 @pytest.fixture

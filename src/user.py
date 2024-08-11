@@ -20,7 +20,9 @@ class User:
         User.all_tasks_count += len(task_list) if task_list else 0
 
     def __str__(self):
-        return f"{self.last_name} {self.first_name}, Email: {self.email}, Всего задач в списке: {len(self.__task_list)}"
+        return (
+            f"{self.last_name} {self.first_name}, Email: {self.email}, Всего задач в списке: {len(self.__task_list)}"
+        )
 
     @property
     def task_list(self):
