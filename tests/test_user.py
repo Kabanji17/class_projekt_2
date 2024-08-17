@@ -54,3 +54,24 @@ def test_task_iterator(task_iterator):
 
     with pytest.raises(StopIteration):
         next(task_iterator)
+
+
+def test_middle_runtime(first_user, user_without_task):
+    assert first_user.middle_task_runtime() == 50.0
+    assert user_without_task.middle_task_runtime() == 0
+
+
+def test_custom_exception(capsys, first_user):
+    assert len(first_user.task_in_list) == 2
+
+    task_add = Task("Купить укроп", "Купить укроп для салата", created_at="31.07.2024")
+    first_user.task_list = task_add
+    message = capsys.readouterr()
+    assert message.out.strip().split("\n")[-2] == "Нельзя задать задачу с нулевым временем выполнения"
+    assert message.out.strip().split("\n")[-1] == "Обработка добавления задачи завершена"
+
+    task_add = Task("Купить укроп", "Купить укроп для салата", created_at="31.07.2024", run_time=60)
+    first_user.task_list = task_add
+    message = capsys.readouterr()
+    assert message.out.strip().split("\n")[-2] == "Задача добавлена успешно"
+    assert message.out.strip().split("\n")[-1] == "Обработка добавления задачи завершена"

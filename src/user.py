@@ -1,4 +1,5 @@
 from src.task import Task
+from src.exceptions import ZeroRunTimeTask
 
 
 class User:
@@ -34,8 +35,17 @@ class User:
     @task_list.setter
     def task_list(self, task: Task):
         if isinstance(task, Task):
-            self.__task_list.append(task)
-            User.all_tasks_count += 1
+            try:
+                if task.run_time == 0:
+                    raise ZeroRunTimeTask("Нельзя задать задачу с нулевым временем выполнения")
+            except ZeroRunTimeTask as e:
+                print(str(e))
+            else:
+                self.__task_list.append(task)
+                User.all_tasks_count += 1
+                print("Задача добавлена успешно")
+            finally:
+                print("Обработка добавления задачи завершена")
         else:
             raise TypeError
 
@@ -43,18 +53,30 @@ class User:
     def task_in_list(self):
         return self.__task_list
 
+    def middle_task_runtime(self):
+        try:
+            return sum([task.run_time for task in self.__task_list]) / len(self.__task_list)
+        except ZeroDivisionError:
+            return 0
+
 
 if __name__ == "__main__":
-    task_1 = Task("Купить огурцы", "Купить огурцы для салата")
-    usr_1 = User("Oleg123", "Oleg.Olegov@email.com", "Oleg", "Olegov", [task_1])
+
+    task_1 = Task("Купить огурцы", "Купить огурцы для салата", run_time=60)
+    task_2 = Task("Купить помидоры", "Купить помидоры для салата", run_time=70)
+    usr_1 = User("Oleg123", "Oleg.Olegov@email.com", "Oleg", "Olegov", [task_1, task_2])
 
     print(usr_1.task_list)
     print(User.all_tasks_count)
 
-    task_2 = Task("Купить лук", "Купить лук для салата")
-    usr_1.task_list = task_2
+    # task_3 = Task("Купить лук", "Купить лук для салата")
+    # usr_1.task_list = task_3
 
     print(usr_1.task_list)
     print(User.all_tasks_count)
 
     print(usr_1)
+    print(usr_1.middle_task_runtime())
+
+    task_3 = Task("Купить лук", "Купить лук для салата", run_time=1)
+    usr_1.task_list = task_3
